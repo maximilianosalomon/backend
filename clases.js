@@ -23,4 +23,4 @@ class Usuario {
 const usuario1 = new Usuario("Maximiliano", "Salomon");
 usuario1.getFullName();
 usuario1.countMascota();
-addMascota("ruben");
+addMascota("ruholaben");

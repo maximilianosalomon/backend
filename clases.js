@@ -5,6 +5,7 @@ class Usuario {
     this.libros = [{ nombre: "libro1", autor: "autor1" }];
     this.mascotas = ["perro"];
   }
+  //Metodos
   getFullName() {
     console.log(`Nombre completo: ${this.nombre} ${this.apellido}`);
   }

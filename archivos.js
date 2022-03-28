@@ -13,20 +13,7 @@ class Contenedor {
       console.log("Creado!");
       return contenido;
     } catch (error) {
-      console.log("No se pudo guardar el archivo");
-    }
-  }
-  //guardar
-  async save(data) {
-    try {
-      const contenido = await fs.promises.readFile(this.fileName, "utf-8");
-      let nuevoId = parseInt(contenido[contenido.length - 3]) + 1;
-      // console.log("este es el newId: " + newId);
-      let nuevoProducto = { ...contenido, id: nuevoId };
-      console.log("este es el new producto: " + nuevoProducto);
-      return contenido;
-    } catch (error) {
-      console.log("No se pudo guardar el archivo");
+      console.log("No se pudo guardar el archivo", error);
     }
   }
   //leer todo
@@ -34,11 +21,32 @@ class Contenedor {
     try {
       const archivo = await fs.promises.readFile(this.fileName, "utf-8");
       const contenido = JSON.parse(archivo);
-      console.log(contenido);
-      console.log("Obtenidos!");
+      // console.log(contenido.length);
+      console.log("Obtenido!");
       return contenido;
     } catch (error) {
       ("No se pudo leer el archivo!");
+    }
+  }
+  //guardar
+  async save(data) {
+    try {
+      console.log(data);
+      // const archivo = await fs.promises.readFile(this.fileName, "utf-8");
+      // const contenido = JSON.parse(archivo);
+      const contenido = await this.getAll(); //OK
+      // console.log(contenido); //OK
+      let nuevoId = contenido[contenido.length - 1].id + 1; //OK
+      console.log("este es el new Id: " + nuevoId); //OK
+      // let nuevoItem = { ...data, id: nuevoId };
+      let nuevoItem = { ...data };
+      console.log("este es el new Item: " + nuevoItem);
+      // contenido.push(nuevoItem);
+      // // console.log(contenido);
+      // await this.writeFile(contenido);
+      // return nuevoId;
+    } catch (error) {
+      console.log("No se pudo guardar el archivo", error);
     }
   }
   //leer x id
@@ -69,6 +77,7 @@ class Contenedor {
   //borrar todo
   async deleteAll() {
     console.log("borrado");
+    console.log("negro");
   }
 }
 

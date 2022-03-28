@@ -38,13 +38,14 @@ class Contenedor {
       // console.log(contenido); //OK
       let nuevoId = contenido[contenido.length - 1].id + 1; //OK
       console.log("este es el new Id: " + nuevoId); //OK
-      // let nuevoItem = { ...data, id: nuevoId };
-      let nuevoItem = { ...data };
+      let nuevoItem = { ...data, id: nuevoId };
+      // let nuevoItem = { ...data };
       console.log("este es el new Item: " + nuevoItem);
-      // contenido.push(nuevoItem);
+      contenido.push(nuevoItem);
       // // console.log(contenido);
-      // await this.writeFile(contenido);
-      // return nuevoId;
+      let contenidoParse = JSON.stringify(contenido);
+      await this.writeFile(contenidoParse);
+      return nuevoId;
     } catch (error) {
       console.log("No se pudo guardar el archivo", error);
     }

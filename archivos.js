@@ -21,7 +21,6 @@ class Contenedor {
     try {
       const archivo = await fs.promises.readFile(this.fileName, "utf-8");
       const contenido = JSON.parse(archivo);
-      // console.log(contenido.length);
       console.log("Obtenido!");
       return contenido;
     } catch (error) {
@@ -31,20 +30,13 @@ class Contenedor {
   //guardar
   async save(data) {
     try {
-      console.log(data);
-      // const archivo = await fs.promises.readFile(this.fileName, "utf-8");
-      // const contenido = JSON.parse(archivo);
+      // console.log(data);//OK
       const contenido = await this.getAll(); //OK
-      // console.log(contenido); //OK
       let nuevoId = contenido[contenido.length - 1].id + 1; //OK
-      console.log("este es el new Id: " + nuevoId); //OK
       let nuevoItem = { ...data, id: nuevoId };
-      // let nuevoItem = { ...data };
-      console.log("este es el new Item: " + nuevoItem);
       contenido.push(nuevoItem);
-      // // console.log(contenido);
-      let contenidoParse = JSON.stringify(contenido);
-      await this.writeFile(contenidoParse);
+      let contenidoString = JSON.stringify(contenido);
+      await this.writeFile(contenidoString);
       return nuevoId;
     } catch (error) {
       console.log("No se pudo guardar el archivo", error);
@@ -53,11 +45,14 @@ class Contenedor {
   //leer x id
   async getById(id) {
     try {
-      const contenido = await this.getAll();
-      const contenidoParse = JSON.parse(contenido);
-      const elemento = contenidoParse.filter((e) => e.id === id);
+      // const contenido = await this.getAll(); //al usarlo no me ejecuta lo de este metodo
+      // const contenidoParse = JSON.parse(contenido); //al usarlo no me ejecuta lo de este metodo
+      const archivo = await fs.promises.readFile(this.fileName, "utf-8");
+      const contenidoParse = JSON.parse(archivo);
+      const item = contenidoParse.filter((e) => e.id === id);
       console.log("Obtenido x id!");
-      return elemento;
+      console.log(item);
+      return item;
     } catch (error) {
       ("No se pudo leer el archivo x id!");
     }
@@ -65,10 +60,13 @@ class Contenedor {
   //borrar por ID
   async deleteById(id) {
     try {
-      const contenido = await this.getAll();
-      const contenidoParse = JSON.parse(contenido);
-      const elementos = contenidoParse.filter((e) => e.id !== id);
-      const contenidoNuevo = await this.save(JSON.stringify(elementos));
+      const archivo = await fs.promises.readFile(this.fileName, "utf-8");
+      const contenidoParse = JSON.parse(archivo);
+      const items = contenidoParse.filter((e) => e.id !== id);
+      const contenidoNuevo = await fs.promises.writeFile(
+        this.fileName,
+        JSON.stringify(items)
+      );
       console.log("Borrado x id!");
       return contenidoNuevo;
     } catch (error) {
@@ -77,8 +75,8 @@ class Contenedor {
   }
   //borrar todo
   async deleteAll() {
-    console.log("borrado");
-    console.log("negro");
+    const items = [];
+    await this.writeFile(items);
   }
 }
 

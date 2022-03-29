@@ -8,7 +8,7 @@ const nuevoItem = new Item("Lapiz", "50", "imagenLapiz");
 /*----Metodos----*/
 // contenedor.writeFile("Nuevo producto");//OK
 // contenedor.getAll();//OK
-// contenedor.save(nuevoItem);//OK
+contenedor.save(nuevoItem); //OK
 // contenedor.deleteAll();//OK
 
 /*----Metodos x ID----*/

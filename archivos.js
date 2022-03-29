@@ -54,7 +54,7 @@ class Contenedor {
       console.log(item);
       return item;
     } catch (error) {
-      ("No se pudo leer el archivo x id!");
+      ("No se pudo leer el archivo x id!!");
     }
   }
   //borrar por ID
